@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AsiaInfo</string>
+    <string name="deleteDialogText">Do you realy want to delete all offline data?</string>
+    <string name="search_country">Search Country</string>
+</resources>
