@@ -34,12 +34,6 @@ public interface DBInterface
     @Query("select * from "+CountryTable)
     public List<Countries> getCountries();
 
-    @Query("SELECT * FROM "+BorderTable+" where cid = :cid")
-    List<Borders> getCountryBorders(String cid);
-
-    @Query("SELECT * FROM "+LanguageTable+" where cid = :cid")
-    List<Languages> getCountryLanguages(String cid);
-
     @Query("SELECT name FROM "+BorderTable+" where cid = :cid")
     List<String> getCountryBordersName(String cid);
 
@@ -49,19 +43,4 @@ public interface DBInterface
     @Query("DELETE FROM "+CountryTable+";")
     void deleteAll();
 
-
-    @Delete
-    public void deleteCountry(Countries country);
-
-    @Delete
-    public void deleteBorder(Borders border);
-
-    @Delete
-    public void deleteLanguage(Languages language);
-
-
-    /*
-    @Update
-    public void updateUser(User user);
-    */
 }
