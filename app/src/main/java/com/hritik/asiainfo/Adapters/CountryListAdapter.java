@@ -57,7 +57,7 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
         Log.i("Array check",""+cList.size());
     }
 
-
+    /*
     private void saveImage(Bitmap bitmap, @NonNull String name) throws IOException {
         boolean saved;
         OutputStream fos;
@@ -89,6 +89,8 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
         fos.flush();
         fos.close();
     }
+
+     */
 
     @Override
     public CountryListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
