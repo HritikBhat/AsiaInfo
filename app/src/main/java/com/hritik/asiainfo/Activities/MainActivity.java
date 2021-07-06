@@ -2,10 +2,13 @@ package com.hritik.asiainfo.Activities;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -59,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private DBInterface dbInterface;
     private final Context context = this;
+    private ConstraintLayout searchLayout;
+    private boolean isSearchButtonClicked=false;
 
     public static AsianCountryDatabase myAppDatabase;
 
@@ -299,7 +304,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         sharedPreferences= getSharedPreferences("MyShared",MODE_PRIVATE);
-
+        searchLayout=findViewById(R.id.searchbarlayout);
+        //searchLayout.setVisibility(View.INVISIBLE);
         myAppDatabase = Room.databaseBuilder(getApplicationContext(), AsianCountryDatabase.class,"AsianCountries").allowMainThreadQueries().build();
         dbInterface =myAppDatabase.myDao();
 
@@ -341,6 +347,30 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    void animateView(View view,float alpha,float yValues){
+        ObjectAnimator move=ObjectAnimator.ofFloat(view, "translationY",yValues);
+        move.setDuration(2500);
+        ObjectAnimator alpha1=ObjectAnimator.ofFloat(view, "alpha",alpha);
+        alpha1.setDuration(1000);
+        AnimatorSet animatorSet =new AnimatorSet();
+        animatorSet.play(alpha1).with(move);
+        animatorSet.start();
+    }
+
+    void triggerSearchLayout(){
+        if (isSearchButtonClicked){
+            //searchLayout.setVisibility(View.INVISIBLE);
+            animateView(searchLayout,0f,-20f);
+            isSearchButtonClicked=false;
+        }
+        else{
+            //searchLayout.setVisibility(View.VISIBLE);
+            animateView(searchLayout,1f,20f);
+
+            isSearchButtonClicked=true;
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -358,6 +388,10 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.delete) {
             deleteAll();
+            return true;
+        }
+        if (id == R.id.search) {
+            triggerSearchLayout();
             return true;
         }
         return super.onOptionsItemSelected(item);
