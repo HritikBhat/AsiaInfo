@@ -25,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     private final Context context = this;
     private ConstraintLayout searchLayout;
     private boolean isSearchButtonClicked=false;
+    private ConstraintLayout empty_img;
 
     public static AsianCountryDatabase myAppDatabase;
 
@@ -107,8 +109,13 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     loader.setVisibility(View.INVISIBLE);
-                    recyclerView.setVisibility(View.VISIBLE);
-                    searchBar.setVisibility(View.VISIBLE);
+                    if (cList.size()>0){
+                        recyclerView.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        empty_img.setVisibility(View.VISIBLE);
+                    }
+
 
                 }
             }, 2000);
@@ -157,6 +164,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void retrieve_offlineList(){
+        loader.setVisibility(View.VISIBLE);
+        findViewById(R.id.empty_list_img).setVisibility(View.INVISIBLE);
+        findViewById(R.id.country_rv).setVisibility(View.INVISIBLE);
         List<Countries> countries = dbInterface.getCountries();
         for(Countries country:countries){
             CountryData countryData = new CountryData();
@@ -180,8 +190,8 @@ public class MainActivity extends AppCompatActivity {
     }
     private void retrieve_list(){
         loader.setVisibility(View.VISIBLE);
+        findViewById(R.id.empty_list_img).setVisibility(View.INVISIBLE);
         findViewById(R.id.country_rv).setVisibility(View.INVISIBLE);
-        findViewById(R.id.search_et).setVisibility(View.INVISIBLE);
         cList.clear();
         String URL = ASIA_URL;
         JSONObject jsonBody = new JSONObject();
@@ -302,6 +312,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        empty_img=findViewById(R.id.empty_list_img);
 
         sharedPreferences= getSharedPreferences("MyShared",MODE_PRIVATE);
         searchLayout=findViewById(R.id.searchbarlayout);
