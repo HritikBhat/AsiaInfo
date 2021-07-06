@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
     void deleteAll(){
         DeleteDialog cdd=new DeleteDialog(context,dbInterface);
         cdd.show();
-
     }
 
     void filter(String text){
@@ -182,8 +181,6 @@ public class MainActivity extends AppCompatActivity {
             countryData.setLang_list(lang);
             countryData.setBord_list(bord);
             cList.add(countryData);
-
-
         }
         System.out.println("Hellow ew: "+cList.size());
         showList(true);
@@ -308,6 +305,23 @@ public class MainActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
+    void  checkNetwork(){
+        boolean netFlag=false;
+        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.LOLLIPOP){
+            // Do something for lollipop and above versions
+            netFlag=haveNetworkAPI29(this);
+        } else{
+            // do something for phones running an SDK before lollipop
+            netFlag=haveNetwork(this);
+        }
+        if (!netFlag){
+            retrieve_offlineList();
+        }
+        else {
+            retrieve_list();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -342,20 +356,7 @@ public class MainActivity extends AppCompatActivity {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
         });
 
-        boolean netFlag=false;
-        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.LOLLIPOP){
-            // Do something for lollipop and above versions
-            netFlag=haveNetworkAPI29(this);
-        } else{
-            // do something for phones running an SDK before lollipop
-            netFlag=haveNetwork(this);
-        }
-        if (!netFlag){
-            retrieve_offlineList();
-        }
-        else {
-            retrieve_list();
-        }
+        checkNetwork();
 
     }
 
