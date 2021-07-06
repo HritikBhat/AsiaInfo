@@ -179,9 +179,9 @@ public class MainActivity extends AppCompatActivity {
             countryData.setBord_list(bord);
             cList.add(countryData);
         }
-        System.out.println("Hellow ew: "+cList.size());
         showList(true);
     }
+
     private void retrieve_list(){
         loader.setVisibility(View.VISIBLE);
         findViewById(R.id.empty_list_img).setVisibility(View.INVISIBLE);
@@ -220,7 +220,6 @@ public class MainActivity extends AppCompatActivity {
 
                         ArrayList<String> bordList = new ArrayList<String>();
                         JSONArray bord = object.getJSONArray("borders");
-                        //System.out.println(bord.length());
                         for (int j=0; j < bord.length(); j+=1){
                             String bordCountry = bord.getString(j);
                             bordList.add(bordCountry);
@@ -252,7 +251,6 @@ public class MainActivity extends AppCompatActivity {
                                 dbInterface.addLanguage(language);
                             }
 
-                            //System.out.println(bord.length());
                             for (int j=0; j < bord.length(); j+=1){
                                 String bordCountry = bord.getString(j);
                                 Borders border = new Borders();
@@ -267,7 +265,6 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     List<Countries> countries = dbInterface.getCountries();
-                    System.out.println("Heelllsdo ::  "+countries.size());
 
 
                 } catch (JSONException e) {
