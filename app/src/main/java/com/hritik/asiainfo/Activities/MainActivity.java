@@ -25,7 +25,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -77,8 +76,6 @@ public class MainActivity extends AppCompatActivity {
     void filter(String text){
         ArrayList<CountryData> temp = new ArrayList();
         for(CountryData d: cList){
-            //or use .equal(text) with you want equal match
-            //use .toLowerCase() for better matches
             if(d.getName().contains(text)){
                 temp.add(d);
             }

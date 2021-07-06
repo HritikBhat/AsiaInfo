@@ -44,7 +44,6 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
     private ArrayList<CountryData> cList,cListFiltered;
     Context context;
     Activity activity;
-    SharedPreferences sharedPreferences;
     Boolean offlineStatus;
 
     // RecyclerView recyclerView;
@@ -56,41 +55,6 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
         this.offlineStatus=offlineStatus;
         Log.i("Array check",""+cList.size());
     }
-
-    /*
-    private void saveImage(Bitmap bitmap, @NonNull String name) throws IOException {
-        boolean saved;
-        OutputStream fos;
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            ContentResolver resolver = context.getContentResolver();
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, name);
-            contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/png");
-            contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, "DCIM/" + IMAGES_FOLDER_NAME);
-            Uri imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-            fos = resolver.openOutputStream(imageUri);
-        } else {
-            String imagesDir = Environment.getExternalStoragePublicDirectory(
-                    Environment.DIRECTORY_DCIM).toString() + File.separator + IMAGES_FOLDER_NAME;
-
-            File file = new File(imagesDir);
-
-            if (!file.exists()) {
-                file.mkdir();
-            }
-
-            File image = new File(imagesDir, name + ".png");
-            fos = new FileOutputStream(image);
-
-        }
-
-        saved = bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
-        fos.flush();
-        fos.close();
-    }
-
-     */
 
     @Override
     public CountryListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
