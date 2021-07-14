@@ -21,7 +21,6 @@ import static com.hritik.asiainfo.Constants.DBConstant.LanguageTable;
 public interface DBInterface
 {
 
-
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     public long addCountry(Countries country);
 
